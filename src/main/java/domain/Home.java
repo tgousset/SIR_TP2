@@ -79,4 +79,5 @@ public class Home {
     public void setElectronicDeviceList(List<ElectronicDevice> electronicDeviceList) {
         this.electronicDeviceList = electronicDeviceList;
     }
+
 }
