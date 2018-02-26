@@ -3,6 +3,7 @@ package domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class Person {
     private String lastName;
     private String mail;
     private List<Person> friends;
-    //private List<Home> homeList;
+    private List<Home> homeList;
 
     public Person(String lastName, String firstName, String mail){
         this.firstName = firstName;
@@ -87,5 +88,26 @@ public class Person {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    @OneToMany(mappedBy = "owner")
+    public List<Home> getHomeList() {
+        return homeList;
+    }
+
+    public void setHomeList(List<Home> homeList) {
+        this.homeList = homeList;
+    }
+
+    public void addHome(Home home){
+        this.homeList.add(home);
+    }
+
+    public void removeHome(int index){
+        this.homeList.remove(index);
+    }
+
+    public void removeHome(Home home){
+        this.homeList.remove(home);
     }
 }
