@@ -21,7 +21,7 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
-        //this.homeList = new ArrayList<Home>();
+        this.homeList = new ArrayList<Home>();
         this.friends = new ArrayList<Person>();
     }
 
@@ -65,6 +65,7 @@ public class Person {
         this.mail = mail;
     }
 
+    @OneToMany
     public List<Person> getFriends() {
         return friends;
     }
@@ -110,4 +111,6 @@ public class Person {
     public void removeHome(Home home){
         this.homeList.remove(home);
     }
+
+
 }
