@@ -80,4 +80,28 @@ public class Home {
         this.electronicDeviceList = electronicDeviceList;
     }
 
+    public void addHeater(Heater heater){
+        this.heaterList.add(heater);
+    }
+
+    public void removeHeater(Heater heater){
+        this.heaterList.remove(heater);
+    }
+
+    public void removeHeater(int index){
+        this.heaterList.remove(index);
+    }
+
+    public void addElectronicDevice(ElectronicDevice electronicDevice){
+        this.electronicDeviceList.add(electronicDevice);
+    }
+
+    public void removeElectronicDevice(ElectronicDevice electronicDevice){
+        this.electronicDeviceList.remove(electronicDevice);
+    }
+
+    public void removeElectronicDevice(int index){
+        this.electronicDeviceList.remove(index);
+    }
+
 }

@@ -1,12 +1,14 @@
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Heater {
+public class Heater extends IntelligentPeripheral{
 
     private Long Id;
     private Double cons;
@@ -15,6 +17,8 @@ public class Heater {
     public Heater(Double cons){
         this.cons = cons;
     }
+
+    public Heater(){}
 
     @Id
     @GeneratedValue
@@ -35,6 +39,7 @@ public class Heater {
     }
 
     @ManyToOne
+    @JsonIgnore
     public Home getHome() {
         return home;
     }

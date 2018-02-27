@@ -29,7 +29,9 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public Person(){}
+    public Person(){
+        homeList = new ArrayList<Home>();
+    }
 
     @Id
     @GeneratedValue

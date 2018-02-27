@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class ElectronicDevice {
+public class ElectronicDevice extends IntelligentPeripheral{
 
     private Long id;
     private Double cons;
