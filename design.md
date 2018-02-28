@@ -20,4 +20,4 @@ Les différents concepts correspondent à ceux cités dans les tp :
   
 Il y a deux servlet :
   - Myservlet pour afficher "Hello world SIR"
-  - userInfo afin d'afficher le formulaire d'un utilisateur
+  - userInfo afin d'afficher le formulaire d'un utilisateur dont les données proviennent de "myform.html"
