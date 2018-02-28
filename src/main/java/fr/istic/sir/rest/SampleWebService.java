@@ -4,17 +4,23 @@ import domain.ElectronicDevice;
 import domain.Heater;
 import domain.Home;
 import domain.Person;
-import service.PersonDAO;
+import jpa.EntityManagerHelper;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.Collection;
 
 @Path("/hello")
 public class SampleWebService {
 
-    private PersonDAO dao;
+    EntityManager manager = EntityManagerHelper.getEntityManager();
+    EntityTransaction tx = manager.getTransaction();
+
     public SampleWebService(){
-        dao = new PersonDAO();
+
     }
 
     @GET
@@ -24,44 +30,65 @@ public class SampleWebService {
     }
 
     @GET
-    @Path("/person")
+    @Path("/persons")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person findPerson(){
-        Person person = new Person();
-        person.setId((long) 1);
-        person.setFirstName("Tifenn");
-        person.setLastName("Gousset");
-        person.setMail("tifenn.gousset@gmail.com");
-        return person;
-    }
-
-    @POST
-    @Path("/person2")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Person createPerson(Person person){
-        return dao.create(person);
+    public Collection<Person> getPerson(){
+       return manager.createQuery("Select p from Person p", Person.class).getResultList();
     }
 
     @GET
-    @Path("/home")
+    @Path("/persons/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Home getHome(){
+    public Person getPerson(@PathParam("id") long id) {
+        return manager.createQuery("Select p from Person p where p.id = :id", Person.class).setParameter("id", id).getResultList().get(0);
+    }
+
+    @POST
+    @Path("/createPerson")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createPerson(@QueryParam("firstName") String firstName, @QueryParam("lastName") String lastName,
+                                 @QueryParam("mail") String mail) {
+        Person p = new Person();
+        p.setFirstName(firstName);
+        p.setLastName(lastName);
+        p.setMail(mail);
+
+        tx.begin();
+        manager.persist(p);
+        tx.commit();
+
+        String result = "LastName: " + lastName + "\n FirstName : " + firstName + "\n Mail : " + mail;
+        return Response.status(200).entity(result).build();
+    }
+
+    @GET
+    @Path("/homes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Home> getHome(){
+        return manager.createQuery("Select h from Home h", Home.class).getResultList();
+    }
+
+    @POST
+    @Path("/homes")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createHome(@QueryParam("height") int height,
+                                 @QueryParam("nbRoom") int nbRoom, @QueryParam("idOwner") long idO) {
         Home home = new Home();
-        home.setId((long)1);
-        home.setHeight(400);
-        home.setNbRoom(3);
-        Person person = new Person();
-        //person.addHome(home);
-        home.setOwner(person);
-        Heater heater = new Heater((double) 300);
-        heater.setId(1);
-        heater.setHome(home);
-        home.addHeater(heater);
-        ElectronicDevice eDevice = new ElectronicDevice((double) 25);
-        eDevice.setId(1);
-        home.addElectronicDevice(eDevice);
-        return home;
+
+        home.setHeight(height);
+        home.setNbRoom(nbRoom);
+
+        Person owner = manager.createQuery("Select p from Person p where p.id = :id", Person.class)
+                .setParameter("id", idO).getResultList().get(0);
+
+        home.setOwner(owner);
+
+        tx.begin();
+        manager.persist(home);
+        tx.commit();
+
+        String result = "Height : " + height + "; Number of room : " + nbRoom + "; Home ID : " + idO;
+        return Response.status(200).entity(result).build();
     }
 
     @GET
@@ -69,10 +96,7 @@ public class SampleWebService {
     @Produces(MediaType.APPLICATION_JSON)
     public ElectronicDevice getDevice(){
         ElectronicDevice eDevice = new ElectronicDevice((double) 50);
-        eDevice.setId((long)1);
-        Home home = new Home();
-        home.addElectronicDevice(eDevice);
-
+        eDevice.setId(1);
         return eDevice;
     }
 
@@ -80,10 +104,8 @@ public class SampleWebService {
     @Path("/heater")
     @Produces(MediaType.APPLICATION_JSON)
     public Heater getHeater(){
-        Heater heater = new Heater((double) 250);
-        heater.setId((long)1);
-        Home home = new Home();
-        home.addHeater(heater);
+        Heater heater = new Heater();
+        heater.setCons((double) 25);
         return heater;
     }
 

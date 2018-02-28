@@ -1,5 +1,7 @@
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,7 @@ public class Home {
     }
 
     @OneToMany(mappedBy = "home")
+    @JsonIgnore
     public List<Heater> getHeaterList() {
         return heaterList;
     }
@@ -72,6 +75,7 @@ public class Home {
     }
 
     @OneToMany(mappedBy = "home")
+    @JsonIgnore
     public List<ElectronicDevice> getElectronicDeviceList() {
         return electronicDeviceList;
     }
@@ -94,6 +98,7 @@ public class Home {
 
     public void addElectronicDevice(ElectronicDevice electronicDevice){
         this.electronicDeviceList.add(electronicDevice);
+        //electronicDevice.setHome(this);
     }
 
     public void removeElectronicDevice(ElectronicDevice electronicDevice){

@@ -1,5 +1,7 @@
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,6 +13,7 @@ public class ElectronicDevice extends IntelligentPeripheral{
     private Long id;
     private Double cons;
     private Home home;
+
 
     public ElectronicDevice(Double cons){
         this.cons = cons;
@@ -37,6 +40,7 @@ public class ElectronicDevice extends IntelligentPeripheral{
     }
 
     @ManyToOne
+    @JsonIgnore
     public Home getHome() {
         return home;
     }

@@ -1,5 +1,7 @@
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -68,6 +70,7 @@ public class Person {
     }
 
     @OneToMany
+    @JsonIgnore
     public List<Person> getFriends() {
         return friends;
     }
@@ -94,6 +97,7 @@ public class Person {
     }
 
     @OneToMany(mappedBy = "owner")
+    @JsonIgnore
     public List<Home> getHomeList() {
         return homeList;
     }

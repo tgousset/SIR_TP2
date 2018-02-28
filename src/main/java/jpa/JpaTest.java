@@ -28,8 +28,6 @@ public class JpaTest {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		try {
-			
-			
 			/*Person p = new Person();
 			p.setLastName("martin");
 			manager.persist(p);*/
@@ -57,9 +55,7 @@ public class JpaTest {
 
 	public void createPerson(String name){
 	    int numOfPerson = manager.createQuery("Select p From Person p", Person.class).getResultList().size();
-	    //if(numOfPerson == 0){
             manager.persist(new Person(name));
-        //}
     }
 
     public void createPerson(String lastName, String firstName, String mail){
@@ -71,8 +67,6 @@ public class JpaTest {
     public void removePerson(String name){
 		int numOfPerson = manager.createQuery("Select p From Person p", Person.class).getResultList().size();
 		if(numOfPerson > 0){
-		    /*l0ong id = manager.createQuery("Select id from Person where LastName=" + name, Person.class).getFirstResult();
-			*/
             long id = manager.createQuery("Select p from Person p where LastName="+"'"+name+"'" , Person.class).getSingleResult().getId();
             Person p = manager.find(Person.class, id);
             manager.remove(p);
@@ -82,8 +76,6 @@ public class JpaTest {
 	public void removePerson(String lastName, String firstName, String mail){
         int numOfPerson = manager.createQuery("Select p From Person p", Person.class).getResultList().size();
         if(numOfPerson > 0){
-            /*l0ong id = manager.createQuery("Select id from Person where LastName=" + name, Person.class).getFirstResult();
-             */
             long id = manager.createQuery("Select p from Person p where LastName='"+lastName+"' and FirstName='" + firstName + "' and mail='"+mail +"'" , Person.class).getSingleResult().getId();
             Person p = manager.find(Person.class, id);
             manager.remove(p);

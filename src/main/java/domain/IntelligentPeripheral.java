@@ -6,7 +6,7 @@ import javax.persistence.Id;
 public class IntelligentPeripheral {
 
     private long id;
-    private String name;
+    private Double cons;
 
     @Id
     @GeneratedValue
@@ -18,11 +18,11 @@ public class IntelligentPeripheral {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Double getCons() {
+        return this.cons;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCons(Double cons) {
+        this.cons = cons;
     }
 }
