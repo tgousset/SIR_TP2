@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
-@Path("/hello")
+@Path("/api")
 public class SampleWebService {
 
     EntityManager manager = EntityManagerHelper.getEntityManager();

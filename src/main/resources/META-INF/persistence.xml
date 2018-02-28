@@ -41,7 +41,7 @@
       </properties>
    </persistence-unit>
 
- <persistence-unit name="mysql">
+    <persistence-unit name="mysql">
         <properties>
             <!--
             <property name="hibernate.ejb.cfgfile" value="/hibernate.cfg.xml"/>
