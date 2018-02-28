@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaTest {
 
@@ -35,7 +36,8 @@ public class JpaTest {
 	        //test.createPerson("Jack");
 			//test.removePerson("Tifenn");
 			//test.createPerson("Gousset", "Tifenn", "tifenn.gousset@gmail.com");
-            test.removePerson("Gousset", "Tifenn", "tifenn.gousset@gmail.com");
+            //test.removePerson("Gousset", "Tifenn", "tifenn.gousset@gmail.com");
+            test.getPersonList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,7 +61,6 @@ public class JpaTest {
     }
 
     public void createPerson(String lastName, String firstName, String mail){
-
         manager.persist(new Person(lastName, firstName, mail));
 
     }
@@ -82,8 +83,11 @@ public class JpaTest {
         }
     }
 
-
-
-
+    public void getPersonList(){
+        List<Person> personList = manager.createQuery("Select p from Person p").getResultList();
+        for(Person p : personList){
+			System.out.println(p.toString());
+        }
+    }
 
 }

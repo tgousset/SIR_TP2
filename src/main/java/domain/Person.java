@@ -91,11 +91,6 @@ public class Person {
         friends.remove(p);
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
     @OneToMany(mappedBy = "owner")
     @JsonIgnore
     public List<Home> getHomeList() {
@@ -118,5 +113,9 @@ public class Person {
         this.homeList.remove(home);
     }
 
+    @Override
+    public String toString() {
+        return "Nom : "+lastName + " Prenom : "+ firstName + "Mail :" + mail;
+    }
 
 }

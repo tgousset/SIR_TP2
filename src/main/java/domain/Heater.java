@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Heater extends IntelligentPeripheral{
 
-    private Long Id;
+    private Long id;
     private Double cons;
     private Home home;
 
@@ -23,11 +23,11 @@ public class Heater extends IntelligentPeripheral{
     @Id
     @GeneratedValue
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public Double getCons() {

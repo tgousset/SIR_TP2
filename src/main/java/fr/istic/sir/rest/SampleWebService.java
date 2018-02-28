@@ -92,6 +92,21 @@ public class SampleWebService {
     }
 
     @GET
+    @Path("/home")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Home getHome2() {
+        Home h = new Home();
+        h.setNbRoom(5);
+        Heater h1 = new Heater();
+        h1.setCons((double) 500);
+        Heater h2 = new Heater();
+        h2.setCons((double) 600);
+        h.addHeater(h1);
+        h.addHeater(h2);
+        return h;
+    }
+
+    @GET
     @Path("/device")
     @Produces(MediaType.APPLICATION_JSON)
     public ElectronicDevice getDevice(){
